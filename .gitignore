@@ -1,0 +1,7 @@
+#IDE
+.project
+.classpath
+.idea/
+.vscode
+.settings
+.factorypath
