@@ -5,4 +5,4 @@
 .vscode
 .settings
 .factorypath
-.code-workspace
+*.code-workspace
