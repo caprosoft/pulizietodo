@@ -1,4 +1,5 @@
 {
+
 "turni":
     [
         "Aspirare",
@@ -11,5 +12,15 @@
         "Michele",
         "Giacomo",
         "Maksym"
+    ],
+
+"data": 
+    [
+        {
+            "anno": 2024,
+            "mese": 5,
+            "giorno": 9
+        }
     ]
+
 }

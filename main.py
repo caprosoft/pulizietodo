@@ -26,14 +26,19 @@ def main():
     # numero delle mansioni da dividere
     dim = 3
 
-    # carico nella var turni i turni salvati (nel json), carico nella var coinquilini i coinq. salvati (nel json)
+    # carico i valori salvati nel json in corrispettive var
     with open('database.json', 'r', encoding='utf-8') as f:
-        dati = json.load(f) 
+        dati = json.load(f)       
+        
         turni = dati["turni"]
         coinquilini = dati["coinquilini"]
+        
+        anno = dati["data"][0]["anno"]
+        mese = dati["data"][0]["mese"]
+        giorno = dati["data"][0]["giorno"]
     
     # calcolo i giorni passati dalle ultime pulizie
-    data_ultime_pulizie = datetime.datetime (2024, 5, 9)
+    data_ultime_pulizie = datetime.datetime (anno, mese, giorno)
     data_attuale = datetime.datetime.now()
     diff_giorni = abs((data_attuale - data_ultime_pulizie).days) 
 
