@@ -13,7 +13,7 @@ def prossimi_turni(turni, dim):       # scorro a sx di una pos lungo l'array dei
 
 
 def agg_prossimi_turni(turni):
-    prossimi_turni(turni)                                       #richiamo la funzione per il calcolo dei prossimi turni
+    prossimi_turni(turni)                                       # richiamo la funzione per il calcolo dei prossimi turni
     with open('database.json', 'r+', encoding='utf-8') as f:
         dati = json.load(f)                                     # carico i dati già presenti nel .json
         dati.append(turni)                                      # aggiungo alla fine (appendo) i turni aggiornati
@@ -26,10 +26,11 @@ def main():
     # numero delle mansioni da dividere
     dim = 3
 
-    # carico nella var turni i turni salvati nel json
+    # carico nella var turni i turni salvati (nel json), carico nella var coinquilini i coinq. salvati (nel json)
     with open('database.json', 'r', encoding='utf-8') as f:
         dati = json.load(f) 
         turni = dati["turni"]
+        coinquilini = dati["coinquilini"]
     
     # calcolo i giorni passati dalle ultime pulizie
     data_ultime_pulizie = datetime.datetime (2024, 5, 9)
@@ -37,13 +38,18 @@ def main():
     diff_giorni = abs((data_attuale - data_ultime_pulizie).days) 
 
     # stampo i giorni passati dalle ultime pulizie
-    print("L'ultima volta che avete fatto le pulizie era", data_ultime_pulizie.strftime("%A %d %B"), "(", diff_giorni, "giorni fa )")
+    print("\n >> L'ultima volta che avete fatto le pulizie era", data_ultime_pulizie.strftime("%A %d %B"), "(", diff_giorni, "giorni fa )")
 
     # stampo i turni salvati
-    print("Con i seguenti turni:\n", turni)
+    print("\n - Con i seguenti turni:")
+    for i in range(dim):
+        print(" ", turni[i], "-->", coinquilini[i])
   
     # stampo i prossimi turni
-    print("Prossimi turni:\n", prossimi_turni(turni, dim)) 
+    prossimi_turni(turni, dim)
+    print("\n - Prossimi turni:") 
+    for i in range(dim):
+        print(" ", turni[i], "-->", coinquilini[i])
 
 # eseguo il main
 main()

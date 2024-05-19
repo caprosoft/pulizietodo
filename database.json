@@ -1,8 +1,15 @@
 {
 "turni":
     [
-        "Bagno",
         "Aspirare",
-        "Lavare"
+        "Lavare",
+        "Bagno"
+    ],
+
+"coinquilini":
+    [
+        "Michele",
+        "Giacomo",
+        "Maksym"
     ]
 }
