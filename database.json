@@ -1,26 +1,19 @@
 {
-
-"turni":
-    [
+    "turni": [
         "Aspirare",
         "Lavare",
         "Bagno"
     ],
-
-"coinquilini":
-    [
+    "coinquilini": [
         "Michele",
         "Giacomo",
         "Maksym"
     ],
-
-"data": 
-    [
+    "data": [
         {
             "anno": 2024,
             "mese": 5,
             "giorno": 9
         }
     ]
-
 }

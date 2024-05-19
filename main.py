@@ -12,11 +12,11 @@ def prossimi_turni(turni, dim):       # scorro a sx di una pos lungo l'array dei
     return turni                      # ritorno i prossimi turni
 
 
-def agg_prossimi_turni(turni):
-    prossimi_turni(turni)                                       # richiamo la funzione per il calcolo dei prossimi turni
+def agg_prossimi_turni(turni, dim):
+    prossimi_turni(turni, dim)                                  # richiamo la funzione per il calcolo dei prossimi turni
     with open('database.json', 'r+', encoding='utf-8') as f:
         dati = json.load(f)                                     # carico i dati già presenti nel .json
-        dati.append(turni)                                      # aggiungo alla fine (appendo) i turni aggiornati
+        dati["turni"] = turni                                   # modifico il file .json sovrascrivendo i turni prec. con quelli successivi
         f.seek(0)                                               # mi posiziono all' inizio del file ( 0 = inizio, 1 = corrente, 2 = fine )
         json.dump(dati, f, ensure_ascii=False, indent=4)        # inserisco i dati aggiornati
 
@@ -51,8 +51,18 @@ def main():
         print(" ", turni[i], "-->", coinquilini[i])
   
     # stampo i prossimi turni
+    '''
     prossimi_turni(turni, dim)
     print("\n - Prossimi turni:") 
+    for i in range(dim):
+        print(" ", turni[i], "-->", coinquilini[i])
+    '''
+        
+    # aggiungo effettivamente i prossimi turni
+    agg_prossimi_turni(turni, dim)
+
+    # stampo i prossimi turni
+    print("\n - Prossimi turni:")
     for i in range(dim):
         print(" ", turni[i], "-->", coinquilini[i])
 
