@@ -3,6 +3,14 @@ import json
 import locale
 locale.setlocale(locale.LC_TIME, "it_IT.UTF-8") # imposto la lingua dei giorni e dei mesi in italiano
 
+def data_pulizie(anno, mese, giorno):
+    # calcolo i giorni passati dalle ultime pulizie
+    data_ultime_pulizie = datetime.datetime (anno, mese, giorno)
+    data_attuale = datetime.datetime.now()
+    diff_giorni = abs((data_attuale - data_ultime_pulizie).days) 
+    
+    # stampo i giorni passati dalle ultime pulizie
+    print(" >> L'ultima volta che avete fatto le pulizie era", data_ultime_pulizie.strftime("%A %d %B"), "(", diff_giorni, "giorni fa )")
 
 def prossimi_turni(turni, dim):       # scorro a sx di una pos lungo l'array dei turni
     for i in range (dim-1):           # faccio tanti scambi quanti dim -1 (ex. dim=4, j=0; 0<3 )
@@ -36,35 +44,48 @@ def main():
         anno = dati["data"][0]["anno"]
         mese = dati["data"][0]["mese"]
         giorno = dati["data"][0]["giorno"]
-    
-    # calcolo i giorni passati dalle ultime pulizie
-    data_ultime_pulizie = datetime.datetime (anno, mese, giorno)
-    data_attuale = datetime.datetime.now()
-    diff_giorni = abs((data_attuale - data_ultime_pulizie).days) 
 
-    # stampo i giorni passati dalle ultime pulizie
-    print("\n >> L'ultima volta che avete fatto le pulizie era", data_ultime_pulizie.strftime("%A %d %B"), "(", diff_giorni, "giorni fa )")
 
-    # stampo i turni salvati
-    print("\n - Con i seguenti turni:")
-    for i in range(dim):
-        print(" ", turni[i], "-->", coinquilini[i])
-  
-    # stampo i prossimi turni
-    '''
-    prossimi_turni(turni, dim)
-    print("\n - Prossimi turni:") 
-    for i in range(dim):
-        print(" ", turni[i], "-->", coinquilini[i])
-    '''
-        
-    # aggiungo effettivamente i prossimi turni
-    agg_prossimi_turni(turni, dim)
+    #menù scelta funzioni del programma
+    inp=""
+    while 1:
+        print("""
+    1. Visualizza DATA ultime pulizie
+    2. Visualizza turni ULTIME pulizie
+    3. Visualizza turni PROSSIME pulizie
+    4. AGGIUNGI pulizie in data odierna
+    0. ESCI dal programma
+        """)
+        inp = input(" >> Inserire numero opzione desiderata: ")
 
-    # stampo i prossimi turni
-    print("\n - Prossimi turni:")
-    for i in range(dim):
-        print(" ", turni[i], "-->", coinquilini[i])
+        if inp=="1":
+            data_pulizie(anno, mese, giorno)
+
+        elif inp=="2":
+            # stampo i turni salvati
+            print(" >> Turni ultime pulizie:")
+            for i in range(dim):
+                print(" - ", turni[i], "-->", coinquilini[i])
+
+        elif inp=="3":
+            # stampo i prossimi turni
+            prossimi_turni(turni, dim)
+            print(" >> Turni prossime pulizie:") 
+            for i in range(dim):
+                print(" - ", turni[i], "-->", coinquilini[i])
+
+        elif inp=="4":
+            # aggiungo effettivamente i prossimi turni
+            agg_prossimi_turni(turni, dim)
+            # TO-DO! implentare agg_data !!!
+
+        elif inp=="0":
+            #esco dal programma
+            break
+
+        else:
+            print("Opzione non valida")
+       
 
 # eseguo il main
 main()
