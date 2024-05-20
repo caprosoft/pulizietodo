@@ -3,14 +3,16 @@ import json
 import locale
 locale.setlocale(locale.LC_TIME, "it_IT.UTF-8") # imposto la lingua dei giorni e dei mesi in italiano
 
+
 def data_pulizie(anno, mese, giorno):
     # calcolo i giorni passati dalle ultime pulizie
     data_ultime_pulizie = datetime.datetime (anno, mese, giorno)
     data_attuale = datetime.datetime.now()
     diff_giorni = abs((data_attuale - data_ultime_pulizie).days) 
-    
+
     # stampo i giorni passati dalle ultime pulizie
     print(" >> L'ultima volta che avete fatto le pulizie era", data_ultime_pulizie.strftime("%A %d %B"), "(", diff_giorni, "giorni fa )")
+
 
 def prossimi_turni(turni, dim):       # scorro a sx di una pos lungo l'array dei turni
     for i in range (dim-1):           # faccio tanti scambi quanti dim -1 (ex. dim=4, j=0; 0<3 )
@@ -29,8 +31,12 @@ def agg_prossimi_turni(turni, dim):
         json.dump(dati, f, ensure_ascii=False, indent=4)        # inserisco i dati aggiornati
 
 
-def main():
+def stampa_turni(dim, turni, coinquilini):
+    for i in range(dim):
+        print(" - ", turni[i], "-->", coinquilini[i])
 
+
+def main():
     # numero delle mansioni da dividere
     dim = 3
 
@@ -46,7 +52,7 @@ def main():
         giorno = dati["data"][0]["giorno"]
 
 
-    #menù scelta funzioni del programma
+    # menù scelta funzioni del programma
     inp=""
     while 1:
         print("""
@@ -64,15 +70,13 @@ def main():
         elif inp=="2":
             # stampo i turni salvati
             print(" >> Turni ultime pulizie:")
-            for i in range(dim):
-                print(" - ", turni[i], "-->", coinquilini[i])
+            stampa_turni(dim, turni, coinquilini)
 
         elif inp=="3":
             # stampo i prossimi turni
             prossimi_turni(turni, dim)
             print(" >> Turni prossime pulizie:") 
-            for i in range(dim):
-                print(" - ", turni[i], "-->", coinquilini[i])
+            stampa_turni(dim, turni, coinquilini)
 
         elif inp=="4":
             # aggiungo effettivamente i prossimi turni
@@ -80,7 +84,7 @@ def main():
             # TO-DO! implentare agg_data !!!
 
         elif inp=="0":
-            #esco dal programma
+            # esco dal programma
             break
 
         else:
