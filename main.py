@@ -54,34 +54,37 @@ def main():
 
     # menù scelta funzioni del programma
     inp=""
-    while 1:
-        print("""
+    print("*** Benvenuto in PULIZIE TO-DO ! ***")
+    print(
+    """    
     1. Visualizza DATA ultime pulizie
     2. Visualizza turni ULTIME pulizie
     3. Visualizza turni PROSSIME pulizie
     4. AGGIUNGI pulizie in data odierna
-    0. ESCI dal programma
-        """)
-        inp = input(" >> Inserire numero opzione desiderata: ")
+    0. ESCI dal programma"""
+    )
+    while 1:
+        
+        inp = input("\n >> Inserire numero opzione desiderata: ")
 
         if inp=="1":
             data_pulizie(anno, mese, giorno)
 
         elif inp=="2":
             # stampo i turni salvati
-            print(" >> Turni ultime pulizie:")
+            print(" >> Turni ULTIME pulizie:")
             stampa_turni(dim, turni, coinquilini)
 
         elif inp=="3":
             # stampo i prossimi turni
             prossimi_turni(turni, dim)
-            print(" >> Turni prossime pulizie:") 
+            print(" >> Turni PROSSIME pulizie:") 
             stampa_turni(dim, turni, coinquilini)
 
         elif inp=="4":
             # aggiungo effettivamente i prossimi turni
             agg_prossimi_turni(turni, dim)
-            # TO-DO! implentare agg_data !!!
+            # TO-DO! implementare agg_data !!!
 
         elif inp=="0":
             # esco dal programma
