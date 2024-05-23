@@ -96,19 +96,30 @@ def main():
                 turni = dati["turni"]
             
         elif inp=="4":
-            # aggiungo effettivamente i prossimi turni
-            agg_prossimi_turni(turni, dim)
-            # aggiungo data pulizie
-            agg_data_pulizie()
-            print(" >> Aggiornate ultime pulizie a data odierna")
-            
+            conferma = input(" >> Stai per SOVRASCRIVERE la data delle ultime PULIZIE con quella attuale\n >> Sei sicuro di voler procedere? [Si/No]")
+            if conferma.upper() in ["S", "SI"]:
+                # aggiungo effettivamente i prossimi turni
+                agg_prossimi_turni(turni, dim)
+                # aggiungo data pulizie
+                agg_data_pulizie()
+                print(" >> Pulizie AGGIUNTE in data odierna con successo.")
+            elif conferma.upper() in ["N", "NO"]:
+                print(" >> Operazione ANNULLATA.")
+            else:
+                print(" >> Operazione ANNULLATA.")
 
         elif inp=="0":
             # esco dal programma
-            break
+            conferma = input(" >> Sei sicuro di voler USCIRE? [Si/No]")
+            if conferma.upper() in ["S", "SI"]:
+                break
+            elif conferma.upper() in ["N", "NO"]:
+                print("\n")
+            else:
+                print("\n")
 
         else:
-            print("Opzione non valida")
+            print(" >> Opzione NON valida, inserire: 1, 2, 3, 4 o 0\n")
        
 
 # eseguo il main
