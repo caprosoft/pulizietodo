@@ -47,7 +47,7 @@ def agg_prossimi_turni(turni, dim):
         json.dump(dati, f, ensure_ascii=False, indent=4)        # inserisco i dati aggiornati
 
 
-def stampa_turni(dim, turni, coinquilini):
+def stampa_turni(turni, dim, coinquilini):
     for i in range(dim):
         print(" - ", turni[i], "-->", coinquilini[i])
 
@@ -83,13 +83,13 @@ def main():
         elif inp=="2":
             # stampo i turni salvati
             print(" >> Turni ULTIME pulizie:")
-            stampa_turni(dim, turni, coinquilini)
+            stampa_turni(turni, dim, coinquilini)
 
         elif inp=="3":
             # stampo i prossimi turni
             prossimi_turni(turni, dim)
             print(" >> Turni PROSSIME pulizie:") 
-            stampa_turni(dim, turni, coinquilini)
+            stampa_turni(turni, dim, coinquilini)
             # riporto i turni al valore originale
             with open('database.json', 'r', encoding='utf-8') as f:
                 dati = json.load(f)       
