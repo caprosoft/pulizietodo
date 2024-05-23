@@ -80,11 +80,18 @@ def main():
             prossimi_turni(turni, dim)
             print(" >> Turni PROSSIME pulizie:") 
             stampa_turni(dim, turni, coinquilini)
-
+            # riporto i turni al valore originale
+            with open('database.json', 'r', encoding='utf-8') as f:
+                dati = json.load(f)       
+                turni = dati["turni"]
+            
         elif inp=="4":
             # aggiungo effettivamente i prossimi turni
             agg_prossimi_turni(turni, dim)
+            # aggiungo data pulizie
             # TO-DO! implementare agg_data !!!
+            print(" >> Aggiornate ultime pulizie a data odierna")
+            
 
         elif inp=="0":
             # esco dal programma
