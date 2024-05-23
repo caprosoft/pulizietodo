@@ -4,14 +4,30 @@ import locale
 locale.setlocale(locale.LC_TIME, "it_IT.UTF-8") # imposto la lingua dei giorni e dei mesi in italiano
 
 
-def data_pulizie(anno, mese, giorno):
+def data_pulizie():
+    # controllo la data presente nel database.json
+    with open('database.json', 'r', encoding='utf-8') as f:
+        dati = json.load(f)
+        anno = dati["data"][0]["anno"]
+        mese = dati["data"][0]["mese"]
+        giorno = dati["data"][0]["giorno"]
     # calcolo i giorni passati dalle ultime pulizie
     data_ultime_pulizie = datetime.datetime (anno, mese, giorno)
     data_attuale = datetime.datetime.now()
-    diff_giorni = abs((data_attuale - data_ultime_pulizie).days) 
-
+    diff_giorni = abs((data_attuale - data_ultime_pulizie).days)
     # stampo i giorni passati dalle ultime pulizie
     print(" >> L'ultima volta che avete fatto le pulizie era", data_ultime_pulizie.strftime("%A %d %B"), "(", diff_giorni, "giorni fa )")
+
+
+def agg_data_pulizie():
+    data_attuale = datetime.datetime.now()
+    with open('database.json', 'r+', encoding='utf-8') as f:
+        dati = json.load(f)       
+        dati["data"][0]["anno"] = data_attuale.year             # modifico il file .json sovrascrivendo la data delle pulizie con quella attuale
+        dati["data"][0]["mese"] = data_attuale.month
+        dati["data"][0]["giorno"] = data_attuale.day
+        f.seek(0)                                               # mi posiziono all' inizio del file ( 0 = inizio, 1 = corrente, 2 = fine )
+        json.dump(dati, f, ensure_ascii=False, indent=4)        # inserisco i dati aggiornati
 
 
 def prossimi_turni(turni, dim):       # scorro a sx di una pos lungo l'array dei turni
@@ -40,17 +56,11 @@ def main():
     # numero delle mansioni da dividere
     dim = 3
 
-    # carico i valori salvati nel json in corrispettive var
+    # carico turni e coinquilini salvati nel json in corrispettive var
     with open('database.json', 'r', encoding='utf-8') as f:
         dati = json.load(f)       
-        
         turni = dati["turni"]
         coinquilini = dati["coinquilini"]
-        
-        anno = dati["data"][0]["anno"]
-        mese = dati["data"][0]["mese"]
-        giorno = dati["data"][0]["giorno"]
-
 
     # menù scelta funzioni del programma
     inp=""
@@ -68,7 +78,7 @@ def main():
         inp = input("\n >> Inserire numero opzione desiderata: ")
 
         if inp=="1":
-            data_pulizie(anno, mese, giorno)
+            data_pulizie()
 
         elif inp=="2":
             # stampo i turni salvati
@@ -89,7 +99,7 @@ def main():
             # aggiungo effettivamente i prossimi turni
             agg_prossimi_turni(turni, dim)
             # aggiungo data pulizie
-            # TO-DO! implementare agg_data !!!
+            agg_data_pulizie()
             print(" >> Aggiornate ultime pulizie a data odierna")
             
 
